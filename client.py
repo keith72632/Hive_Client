@@ -38,4 +38,4 @@ if __name__ == '__main__':
         sendData(HOST, PORT, new_data)
         sleep(5)
         gpio_write(gpio_channel2, 0)
-        sleep(5)
+        sleep(4)
