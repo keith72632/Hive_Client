@@ -15,19 +15,14 @@ def create_sock(host, port):
     s.listen(5)
     print('Listening...\n')
 
-    return s
-
-def receive_data(sock):
-    conn, addr = sock.accept()
-    with conn:
-        print(f'Connected by {addr}')
-        while True:
+    while True:
+        conn, addr = s.accept()
+        with conn:
+            print(f'Connected by {addr}')
             data = conn.recv(1024)
             if data:
                 print(data.decode())
 
 
 if __name__ == '__main__':
-    s = create_sock(HOST, PORT)
-
-    receive_data(s)
+    create_sock(HOST, PORT)        
