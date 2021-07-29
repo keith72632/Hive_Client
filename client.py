@@ -2,10 +2,11 @@ import socket
 import sys
 from time import sleep
 from pprint import pprint
-from sensors import setup, gpio_read
+from sensors import setup, gpio_read, gpio_write
 
 data = 'hey\n'
-gpio_channel = 11
+gpio_channel1 = 11
+gpio_channel2 = 13
 HOST = sys.argv[1]
 PORT = int(sys.argv[2])
 KNRM = "\x1B[0m"
@@ -30,12 +31,11 @@ def getServerInfo(host, port):
     print('Host Name:',socket.gethostname())
 
 if __name__ == '__main__':
-    setup(gpio_channel)
-    new_data = gpio_read(gpio_channel)
-    if new_data:
-        respond = new_data
-    else:
-        respond = 0
+    setup(gpio_channel1, gpio_channel2)
     while True:
-        sendData(HOST, PORT, respond)
-        sleep(10)
+        gpio_write(gpio_channel2, 1)
+        new_data = gpio_read(gpio_channel1)
+        sendData(HOST, PORT, new_data)
+        sleep(5)
+        gpio_write(gpio_channel2, 0)
+        sleep(5)
