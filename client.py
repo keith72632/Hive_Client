@@ -36,4 +36,6 @@ if __name__ == '__main__':
         respond = new_data
     else:
         respond = 0
-    sendData(HOST, PORT, respond)
+    while True:
+        sendData(HOST, PORT, respond)
+        sleep(10)
